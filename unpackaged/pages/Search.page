@@ -1,0 +1,91 @@
+<apex:page >
+
+    <script src="/soap/ajax/16.0/connection.js" type="text/javascript"></script>
+    <script>
+    function initPage() { 
+    document.getElementById("uniqueid").focus(); 
+    
+    }
+    
+ 
+    function searchforid(whichid) {
+    alert("Beginning Search IMO"); 
+    var selectedid = document.getElementById("uniqueid"); 
+    var whichid = selectedid.options[selectedid.selectedIndex].value;
+    var searchid=document.getElementById("hotelid").value;
+    alert(searchid);
+    alert("where am i");
+    var getsfid = sforce.connection.query("Select Id From Account Where " + whichid + " = '" + searchid + "'"); 
+ 
+    if (getsfid.size == 1) { 
+    var records = getsfid.getArray('records'); 
+    for (var i = 0; i < records.length; i++) { 
+    var searched = records[i]; 
+    var acctid=searched.get("Id"); 
+    top.location.replace("/" + acctid); 
+    } 
+ 
+    } else if (getsfid.size > 1) { 
+    switch(whichid) { 
+    case (whichid="Expedia_Hotel_ID__c"): 
+    report = '00O500000017tz6'; 
+    break; 
+    case (whichid="Hotwire_Hotel_ID__c"): 
+    report = '00O500000017uO7'; 
+    break; 
+    case (whichid="Hotels_com_Hotel_ID__c"): 
+    report = '00O500000017uOf'; 
+    break; 
+    case (whichid="Expedia_Vendor_ID_Acct__c"): 
+    report = '00O50000001MM3m'; 
+    break; 
+    case (whichid="Venere_ID__c"): 
+    report = '00O700000020Nrd'; 
+    break; 
+    case (whichid="IAN_ID__c"): 
+    report = '00O70000002WRjK'; 
+    default: 
+    report = '00O500000017tz6'; 
+    } 
+   
+    } else { 
+    alert("No accounts matched your search criteria."); 
+    } 
+    
+    } 
+    
+    </script> 
+      
+    <body class="account" onLoad = "initPage()"> 
+    <DIV class="bPageTitle"> 
+    <DIV class="ptBody secondaryPalette"> 
+    <DIV class="content"><IMG class="pageTitleIcon" alt="Account" src="/s.gif"></img>
+    <H1>Accounts:<SPAN 
+    class="titleSeparatingColon">:</SPAN></H1> 
+    <H2>Search by Id<SPAN 
+    class="titleSeparatingColon">:</SPAN></H2> <br/> 
+    </div></div></div> 
+    <DIV class="bPageBlock secondaryPalette"> 
+    <DIV class="pbBody"> 
+    <DIV class="pbSubsection"> 
+    <form name="AccountSearchForm" method="POST" 
+    action="javascript:searchforid()"> 
+    <TABLE cellSpacing="0" cellPadding="0" border="0"> 
+    <tr ALIGN="LEFT"><td> 
+    <select id="uniqueid" size="1"> 
+    <option value = "Expedia_Hotel_Id__c">Expedia Hotel ID</option> 
+    <option value = "Expedia_Vendor_ID_Acct__c">Expedia Vendor ID</option> 
+    <option value = "Hotwire_Hotel_ID__c">Hotwire Hotel ID</option> 
+    <option value = "Hotels_com_Hotel_ID__c">Hotels.com Hotel ID</option> 
+    <option value = "Venere_ID__c">Venere Hotel ID</option> 
+    <option value = "IAN_ID__c">IAN Hotel ID</option> 
+    </select> 
+    </td>
+    </tr>
+    <input type="text" id="hotelid" size="10"></input><input class="btn" type="submit" name="submit" value=" Search "> </input>
+    </TABLE> 
+    </form> 
+    </div></div></div> 
+    </body> 
+    <br/> 
+</apex:page>

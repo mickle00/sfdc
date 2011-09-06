@@ -1,0 +1,28 @@
+<apex:page showHeader="false" sidebar="false">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="/soap/ajax/22.0/connection.js"> </script>
+<script src="/soap/ajax/22.0/apex.js"> </script>
+<script>
+//mySessionId = String(document.cookie.match(/sid=[^;]+/));
+//mySessionId = mySessionId.substring(4);
+$(document).ready(
+    function () {
+        //sforce.connection.sessionId = mySessionId;
+        isRelatedToCase = sforce.apex.execute("AgentWorkingClass","isRelatedToCase", {myURL:window.location.href});     
+        if (isRelatedToCase != ''){ //thinking of moving isRelatedToCase regex to Javascript instead of hitting SFDC servers
+            //alert('IS RELATED TO CASE ID: ' + isRelatedToCase);
+            apexClassResult = sforce.apex.execute("AgentWorkingClass","startAgentWorkingTime", {createAgentWorkingWeb:isRelatedToCase, myURL:window.location.href});
+        }
+    }       
+);
+$(window).unload(
+    function () {
+        if (apexClassResult != null){
+            var closeTimedSession = sforce.apex.execute("AgentWorkingClass","stopAgentWorkingTime", {agentWorkingId: apexClassResult});
+        }
+    }       
+);
+</script>
+
+LETS SEE IF THIS WORKS IMIO
+</apex:page>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Context ID --></label>
+        <name>WorkIt2__Context__c</name>
+    </fields>
+    <fields>
+        <label><!-- Default --></label>
+        <name>WorkIt2__Default__c</name>
+    </fields>
+    <fields>
+        <label><!-- Object Name --></label>
+        <name>WorkIt2__Object__c</name>
+    </fields>
+</CustomObjectTranslation>

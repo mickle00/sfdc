@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>Total_Games__c</fullName>
+        <externalId>false</externalId>
+        <formula>Total_Losses__c + Total_Wins__c + Total_Ties__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Games</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Losses__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Losses</label>
+        <summarizedField>Result_Set__c.Loss__c</summarizedField>
+        <summaryForeignKey>Result_Set__c.Summation__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Ties__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Ties</label>
+        <summarizedField>Result_Set__c.Tie__c</summarizedField>
+        <summaryForeignKey>Result_Set__c.Summation__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Total_Wins__c</fullName>
+        <externalId>false</externalId>
+        <label>Total Wins</label>
+        <summarizedField>Result_Set__c.Win__c</summarizedField>
+        <summaryForeignKey>Result_Set__c.Summation__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Win_Ratio__c</fullName>
+        <externalId>false</externalId>
+        <formula>Total_Wins__c /  Total_Games__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Win Ratio</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>18</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Summation</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>Sum: {0000000}</displayFormat>
+        <label>Summation Number</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Summations</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

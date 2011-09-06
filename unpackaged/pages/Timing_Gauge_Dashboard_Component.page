@@ -1,0 +1,20 @@
+<apex:page controller="Agent_Time_Report_Controller" showHeader="false" sidebar="false">
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['gauge']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Label');
+        data.addColumn('number', 'Value');
+        data.addRows(1);
+        data.setValue(0, 0, '');
+        data.setValue(0, 1, {!TotalSupportTime});
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+        var options = {width: 375, height: 300, redFrom: 320, redTo: 480,
+            yellowFrom:160, yellowTo: 320, greenFrom:0, greenTo: 160, minorTicks: 4, max: 480, majorTicks:['0','','','480']};
+        chart.draw(data, options);
+      }      
+    </script>
+<div id='chart_div' align="center"></div>
+</apex:page>
