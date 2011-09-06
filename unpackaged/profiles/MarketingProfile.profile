@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
-        <application>Survey_Force</application>
+        <application>Agent_Work_Time</application>
         <default>false</default>
-        <visible>false</visible>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <applicationVisibilities>
+        <application>Force_com</application>
+        <default>false</default>
+        <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
-        <apexClass>AddUsersController</apexClass>
+        <apexClass>AgentWorkingClass</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Agent_Time_Report_Controller</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Agent_Timing_Controller</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ByRefTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -14,11 +31,19 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>Channel_Lookup</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>EmailUtilities</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>ForgotPasswordController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GSurveysController</apexClass>
+        <apexClass>MyJSController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -26,7 +51,19 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ReportFinderUtil</apexClass>
+        <apexClass>MyRestResource</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>MyWebService</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>Post_Results</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>RecursiveTrigger</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -38,15 +75,27 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>SurveyAndQuestionController</apexClass>
+        <apexClass>UrlTestClass</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>SurveyTestingUtil</apexClass>
+        <apexClass>Utilities</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ViewSurveyController</apexClass>
+        <apexClass>Utilities_Test</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>XMLDom</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>sitesRewriter</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>startHereController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <fieldLevelSecurities>
@@ -168,6 +217,51 @@
         <editable>true</editable>
         <field>Account.Website</field>
         <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Agent_Work_Time__c.During_Case_Status__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Agent_Work_Time__c.Last_Ping__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>false</editable>
+        <field>Agent_Work_Time__c.Session_Count__c</field>
+        <hidden>true</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Agent_Work_Time__c.Start_Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Agent_Work_Time__c.Stop_Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Agent_Work_Time__c.Time_in_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Agent_Work_Time__c.Type__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Agent_Work_Time__c.URL__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>false</editable>
+        <field>Agent_Work_Time__c.Work_Time__c</field>
+        <hidden>true</hidden>
     </fieldLevelSecurities>
     <fieldLevelSecurities>
         <editable>true</editable>
@@ -537,6 +631,156 @@
     <fieldLevelSecurities>
         <editable>true</editable>
         <field>Case.Type</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Allow_Update__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Business_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Business_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Business_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Business_Time_In_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Business_Time_In_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Business_Time_In_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Business_Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Calculated_Business_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Calculated_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Case_Time_Total__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Closed_with_Package__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Color__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Dont_Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Overtime_Status__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Time_In_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Time_In_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Time_In_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Total_Business_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Case.WorkIt2__Total_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>false</editable>
+        <field>Channel__c.Channel_Number__c</field>
+        <hidden>true</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Channel__c.Favorite__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Channel__c.HD__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Channel__c.Nickname__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Channel__c.Subscribed__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Channel__c.Type__c</field>
         <hidden>false</hidden>
     </fieldLevelSecurities>
     <fieldLevelSecurities>
@@ -1011,6 +1255,26 @@
     </fieldLevelSecurities>
     <fieldLevelSecurities>
         <editable>true</editable>
+        <field>Result_Set__c.Loss__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Result_Set__c.Summation__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Result_Set__c.Tie__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Result_Set__c.Win__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
         <field>Solution.IsPublished</field>
         <hidden>false</hidden>
     </fieldLevelSecurities>
@@ -1025,103 +1289,28 @@
         <hidden>false</hidden>
     </fieldLevelSecurities>
     <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>SurveyQuestionResponse__c.Response__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>SurveyQuestionResponse__c.SurveyTaker__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>SurveyQuestionResponse__c.Survey_Question__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>SurveyQuestionResponse__c.of_Time_Question_was_Responded_to__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>SurveyTaker__c.Case__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>SurveyTaker__c.Contact__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>SurveyTaker__c.Survey__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>SurveyTaker__c.Taken__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey_Question__c.Choices__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey_Question__c.OrderNumber__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey_Question__c.Question__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey_Question__c.Required__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey_Question__c.Survey__c</field>
+        <editable>false</editable>
+        <field>Summation__c.Total_Games__c</field>
         <hidden>false</hidden>
     </fieldLevelSecurities>
     <fieldLevelSecurities>
         <editable>false</editable>
-        <field>Survey_Question__c.Total_Responses__c</field>
+        <field>Summation__c.Total_Losses__c</field>
         <hidden>false</hidden>
     </fieldLevelSecurities>
     <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey_Question__c.Type__c</field>
+        <editable>false</editable>
+        <field>Summation__c.Total_Ties__c</field>
         <hidden>false</hidden>
     </fieldLevelSecurities>
     <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey__c.Submit_Response__c</field>
+        <editable>false</editable>
+        <field>Summation__c.Total_Wins__c</field>
         <hidden>false</hidden>
     </fieldLevelSecurities>
     <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey__c.Survey_Header__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey__c.URL__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey__c.thankYouLink__c</field>
-        <hidden>false</hidden>
-    </fieldLevelSecurities>
-    <fieldLevelSecurities>
-        <editable>true</editable>
-        <field>Survey__c.thankYouText__c</field>
+        <editable>false</editable>
+        <field>Summation__c.Win_Ratio__c</field>
         <hidden>false</hidden>
     </fieldLevelSecurities>
     <fieldLevelSecurities>
@@ -1154,8 +1343,386 @@
         <field>Task.WhoId</field>
         <hidden>false</hidden>
     </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Business_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Business_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Business_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Business_Time_In_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Business_Time_In_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Business_Time_In_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Business_Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Calculated_Business_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Calculated_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Color__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__ObjName__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Overtime_Status__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Time_In_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Time_In_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Time_In_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Case_Time_Total__c.WorkIt2__Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Action__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Business_Calculated_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Business_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Business_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Business_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Business_Time_In_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Business_Time_In_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Business_Time_In_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Business_Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Color__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Comment__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__End__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Force_End__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__HB_Context__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Heartbeat__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Overtime_Status__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Start__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Time_In_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Time_In_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Time_In_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Timeout_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Timing__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Total_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Time_Entry__c.WorkIt2__Workflow_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Business_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Business_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Business_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Business_Time_In_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Business_Time_In_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Business_Time_In_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Business_Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Case__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Color__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Overtime_Status__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Session_Count__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Time_In_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Time_In_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Time_In_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Total_Business_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>WorkIt2__Timing__c.WorkIt2__Total_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Work_Time__c.Case__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>false</editable>
+        <field>Work_Time__c.Last_Session__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>false</editable>
+        <field>Work_Time__c.Time_in_Hours__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>false</editable>
+        <field>Work_Time__c.Time_in_Minutes__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>false</editable>
+        <field>Work_Time__c.Time_in_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>true</editable>
+        <field>Work_Time__c.Time_to_First_View_Seconds__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>false</editable>
+        <field>Work_Time__c.Time_to_First_View__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
+    <fieldLevelSecurities>
+        <editable>false</editable>
+        <field>Work_Time__c.Total_Agent_Work_Time__c</field>
+        <hidden>false</hidden>
+    </fieldLevelSecurities>
     <layoutAssignments>
         <layout>Account-Account Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Agent_Work_Time__c-Agent Work Time Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Asset-Asset Layout</layout>
@@ -1171,6 +1738,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>CaseClose-Close Case Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Channel__c-Channel Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Contact-Contact Layout</layout>
@@ -1197,25 +1767,22 @@
         <layout>Product2-Product Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Result_Set__c-Result Set Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Solution-Solution Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>SurveyQuestionResponse__c-Survey Question Answer Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>SurveyTaker__c-SurveyTaker Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Survey_Question__c-Survey Question Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Survey__c-Survey Layout</layout>
+        <layout>Summation__c-Summation Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Task-Task Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>User-User Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Work_Time__c-Work Time Layout</layout>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -1224,6 +1791,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Account</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Agent_Work_Time__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -1251,6 +1827,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Case</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Channel__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -1308,6 +1893,15 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Result_Set__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
@@ -1322,7 +1916,7 @@
         <allowEdit>false</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>SurveyQuestionResponse__c</object>
+        <object>Summation__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -1331,7 +1925,7 @@
         <allowEdit>false</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>SurveyTaker__c</object>
+        <object>WorkIt2__Case_Time_Total__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -1340,7 +1934,7 @@
         <allowEdit>false</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Survey_Question__c</object>
+        <object>WorkIt2__Time_Entry__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -1349,9 +1943,30 @@
         <allowEdit>false</allowEdit>
         <allowRead>false</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Survey__c</object>
+        <object>WorkIt2__Timing__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>false</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Work_Time__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <pageAccesses>
+        <apexPage>Agent_Timing_Page</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>Agent_Timing_Time_by_User_Dashboard</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>Agent_Working_Longest_Cases_Dashboard</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
     <pageAccesses>
         <apexPage>AnswersHome</apexPage>
         <enabled>false</enabled>
@@ -1381,7 +1996,7 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>GSurveys</apexPage>
+        <apexPage>GSOError</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -1393,7 +2008,15 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>JSPage</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>MyProfilePage</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>Search</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -1413,15 +2036,19 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>Start_Here</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>StdExceptionTemplate</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>SurveyPage</apexPage>
+        <apexPage>Timing_Gauge_Dashboard_Component</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>TakeSurvey</apexPage>
+        <apexPage>URLTest</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
@@ -1433,7 +2060,11 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
-        <apexPage>labs_survey_css</apexPage>
+        <apexPage>getSessionID</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>testtest</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
     <recordTypeVisibilities>
@@ -1441,6 +2072,26 @@
         <recordType>Idea.InternalIdeasIdeaRecordType</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
+    <tabVisibilities>
+        <tab>Channel__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Result_Set__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Start_Here</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Summation__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>WorkIt2__Case_Time_Total__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
     <tabVisibilities>
         <tab>standard-Account</tab>
         <visibility>DefaultOn</visibility>

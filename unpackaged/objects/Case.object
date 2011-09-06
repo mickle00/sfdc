@@ -231,6 +231,334 @@
         </picklist>
         <type>Picklist</type>
     </fields>
+    <fields>
+        <fullName>WorkIt2__Allow_Update__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Allows WorkIt! to update the total work time for this case.</description>
+        <externalId>false</externalId>
+        <label>WorkIt: Allow Update</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Business_Hours__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  floor(floor(WorkIt2__Total_Business_Seconds__c) / 3600 )
+ , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Business-Hours</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Business_Minutes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  FLOOR(MOD(floor(WorkIt2__Total_Business_Seconds__c) ,3600) / 60 ) , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Business-Minutes</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Business_Seconds__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  MOD( floor(WorkIt2__Total_Business_Seconds__c) ,60) , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Business-Seconds</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Business_Time_In_Hours__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  WorkIt2__Total_Business_Seconds__c / 3600, null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Business Time in Hours</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Business_Time_In_Minutes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  WorkIt2__Total_Business_Seconds__c / 60 , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Business Time in Minutes</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Business_Time_In_Seconds__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  WorkIt2__Total_Business_Seconds__c , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Business Time in Seconds</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Business_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,TEXT(WorkIt2__Business_Hours__c) &amp; &quot;h &quot; &amp; TEXT(WorkIt2__Business_Minutes__c) &amp; &quot;m &quot; &amp; TEXT(WorkIt2__Business_Seconds__c) &amp; &quot;s &quot;, null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Business Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Calculated_Business_Seconds__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WINTERNAL_D: Calculated Business Seconds</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Calculated_Seconds__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WINTERNAL_D: Calculated Seconds</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Case_Time_Total__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WINTERNAL: Case Time Total</label>
+        <referenceTo>WorkIt2__Case_Time_Total__c</referenceTo>
+        <relationshipLabel>Cases</relationshipLabel>
+        <relationshipName>Cases</relationshipName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Closed_with_Package__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Indicated if the case was closed after WorkIt! was installed.</description>
+        <externalId>false</externalId>
+        <label>WINTERNAL: Closed with Package</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Color__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>WINTERNAL_D: Color</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Default</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Dont_Time__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Tells WorkIt! not to time this case.</description>
+        <externalId>false</externalId>
+        <label>WorkIt: Don&apos;t Time</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Hours__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  floor(floor(WorkIt2__Total_Seconds__c) / 3600 )
+ , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Hours</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Minutes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  FLOOR(MOD(floor(WorkIt2__Total_Seconds__c) ,3600) / 60 ) , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Minutes</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Overtime_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>CASE(  WorkIt2__Case_Time_Total__r.WorkIt2__Color__c  , 
+&quot;Red&quot;, IMAGE(&quot;/resource/WorkIt2__Workit2Resources/img/rainbow_01.png&quot;, &quot;Red&quot;) ,
+&quot;Orange&quot;, IMAGE(&quot;/resource/WorkIt2__Workit2Resources/img/rainbow_02.png&quot;, &quot;Orange&quot;) ,
+&quot;Yellow&quot;, IMAGE(&quot;/resource/WorkIt2__Workit2Resources/img/rainbow_03.png&quot;, &quot;Yellow&quot;) ,
+&quot;Blue&quot;, IMAGE(&quot;/resource/WorkIt2__Workit2Resources/img/rainbow_05.png&quot;, &quot;Blue&quot;) ,
+&quot;Violet&quot;, IMAGE(&quot;/resource/WorkIt2__Workit2Resources/img/rainbow_06.png&quot;, &quot;Violet&quot;) ,
+IMAGE(&quot;/resource/WorkIt2__Workit2Resources/img/rainbow_04.png&quot;, &quot;Green&quot;) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Overtime Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Seconds__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  MOD( floor(WorkIt2__Total_Seconds__c) ,60) , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Seconds</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Time_In_Hours__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  WorkIt2__Total_Seconds__c / 3600, null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time in Hours</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Time_In_Minutes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  WorkIt2__Total_Seconds__c / 60 , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time in Minutes</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Time_In_Seconds__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,  WorkIt2__Total_Seconds__c , null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time in Seconds</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Time__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(WorkIt2__Allow_Update__c,TEXT(WorkIt2__Hours__c) &amp; &quot;h &quot; &amp; TEXT(WorkIt2__Minutes__c) &amp; &quot;m &quot; &amp; TEXT(WorkIt2__Seconds__c) &amp; &quot;s &quot;, null)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Total_Business_Seconds__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>WorkIt2__Case_Time_Total__r.WorkIt2__Calculated_Business_Seconds__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>WINTERNAL: Total Business Seconds</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WorkIt2__Total_Seconds__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>WorkIt2__Case_Time_Total__r.WorkIt2__Calculated_Seconds__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>WINTERNAL: Total Seconds</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
     <listViews>
         <fullName>AllClosedCases</fullName>
         <columns>CASES.CASE_NUMBER</columns>
@@ -250,6 +578,7 @@
     </listViews>
     <listViews>
         <fullName>AllOpenCases</fullName>
+        <columns>CASES.CASE_NUMBER</columns>
         <filterScope>Everything</filterScope>
         <filters>
             <field>CASES.CLOSED</field>

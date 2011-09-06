@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label><!-- Advanced Session Types --></label>
+        <name>WorkIt2__Advanced_Sessions__c</name>
+    </fields>
+    <fields>
+        <label><!-- Automatic Context Based Sessions --></label>
+        <name>WorkIt2__AutoContext__c</name>
+    </fields>
+    <fields>
+        <label><!-- Advanced: Missing Context HB --></label>
+        <name>WorkIt2__Missing_Context_HB__c</name>
+    </fields>
+    <fields>
+        <label><!-- Manual Session Switching --></label>
+        <name>WorkIt2__New_Session_Button__c</name>
+    </fields>
+    <fields>
+        <label><!-- Manual Timer Control --></label>
+        <name>WorkIt2__Stop_Button__c</name>
+    </fields>
+</CustomObjectTranslation>

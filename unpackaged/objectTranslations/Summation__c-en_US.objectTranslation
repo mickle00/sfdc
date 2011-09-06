@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Summation</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Summations</value>
+    </caseValues>
+    <fields>
+        <label><!-- Total Games --></label>
+        <name>Total_Games__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Losses --></label>
+        <name>Total_Losses__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Ties --></label>
+        <name>Total_Ties__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Wins --></label>
+        <name>Total_Wins__c</name>
+    </fields>
+    <fields>
+        <label><!-- Win Ratio --></label>
+        <name>Win_Ratio__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

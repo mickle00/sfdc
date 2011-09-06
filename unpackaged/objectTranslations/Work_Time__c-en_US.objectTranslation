@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Work Time</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Work Time</value>
+    </caseValues>
+    <fields>
+        <label><!-- Case --></label>
+        <name>Case__c</name>
+        <relationshipLabel><!-- Work Time --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Last Session --></label>
+        <name>Last_Session__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time in Hours --></label>
+        <name>Time_in_Hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time in Minutes --></label>
+        <name>Time_in_Minutes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time in Seconds --></label>
+        <name>Time_in_Seconds__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time to First View (Seconds) --></label>
+        <name>Time_to_First_View_Seconds__c</name>
+    </fields>
+    <fields>
+        <label><!-- Time to First View --></label>
+        <name>Time_to_First_View__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Agent Work Time --></label>
+        <name>Total_Agent_Work_Time__c</name>
+    </fields>
+    <layouts>
+        <layout>Work Time Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

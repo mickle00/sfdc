@@ -1,0 +1,31 @@
+<apex:page controller="Agent_Time_Report_Controller" showHeader="false" sidebar="false">
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['table']});
+      google.setOnLoadCallback(drawTable);
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Number');
+        data.addColumn('string', 'Priority');
+        data.addColumn('string', 'Time');
+        data.addRows(10);
+        var count = 0;
+        <apex:repeat value="{!TopTenWorkTimes}" var="workTime">
+        	data.setCell(count, 0, '<a href="/{!workTime.Case__c}" target="_top">{!workTime.Case__r.CaseNumber}</a>');
+			data.setCell(count, 1, '{!workTime.Case__r.Priority}');  
+        	data.setCell(count, 2, '{!workTime.Total_Agent_Work_Time__c}');     	
+        	count = count +1;
+        </apex:repeat>
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+        table.draw(data, {showRowNumber: false, allowHtml: true});
+      }
+    </script>
+<style type="text/css">
+a {cursor: auto}
+a:link {color:black;}
+a:visited {color: black;}
+a:hover {text-decoration: none; color: #ff9900; font-weight:bold;}
+a:active {color: #ff0000;text-decoration: none}
+</style>
+<div id='table_div'></div>
+</apex:page>

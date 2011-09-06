@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Channel</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Channels</value>
+    </caseValues>
+    <fields>
+        <label><!-- Channel Number --></label>
+        <name>Channel_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Favorite --></label>
+        <name>Favorite__c</name>
+    </fields>
+    <fields>
+        <label><!-- HD --></label>
+        <name>HD__c</name>
+    </fields>
+    <fields>
+        <label><!-- Nickname --></label>
+        <name>Nickname__c</name>
+    </fields>
+    <fields>
+        <label><!-- Subscribed --></label>
+        <name>Subscribed__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

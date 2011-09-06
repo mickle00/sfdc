@@ -1,0 +1,37 @@
+<apex:page controller="Agent_Time_Report_Controller" showHeader="false" sidebar="false">
+    <apex:includeScript value="{!$Resource.datejs}"/>
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['table']});
+      google.setOnLoadCallback(drawTable);
+      function drawTable() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'User');
+        data.addColumn('string', 'Total Case Time');
+        data.addRows(10);
+        var count = 0;
+        var mySum;
+        var hour = 'hour';
+        var min = 'min';
+        var sec = 'sec';   
+        <apex:repeat value="{!userTimes}" var="userTime">
+            data.setCell(count, 0, '{!userTime['ownerName']}');
+            mySum = {!userTime['sum']}.toString() + ' seconds';
+            var myTime = (new Date).clearTime().addSeconds({!userTime['sum']}).toString('hhmmss');
+            myTime = myTime.substring(0,2) +'h ' + myTime.substring(3,4) + 'm ' + myTime.substring(5,6) + 's';      
+            data.setCell(count, 1, myTime);         
+            count = count +1;
+        </apex:repeat>
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+        table.draw(data, {showRowNumber: false, allowHtml: false});
+      }
+    </script>
+<style type="text/css">
+a {cursor: auto}
+a:link {color:black;}
+a:visited {color: black;}
+a:hover {text-decoration: none; color: #ff9900; font-weight:bold;}
+a:active {color: #ff0000;text-decoration: none}
+</style>
+<div id='table_div'></div>
+</apex:page>
