@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
-    <body>&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js&quot;&gt;&lt;/script&gt;&lt;script&gt;$(window).ready(		function () {			x=document.getElementById(&quot;iFrameArea&quot;);				var parentURL = window.location.href;			parentURL = escape(parentURL);			myURL = &quot;/apex/Agent_Timing_Page?core.apexpages.devmode.url=1&amp;browserURL=&quot;+parentURL;   			ifrm = document.createElement(&quot;IFRAME&quot;);    			ifrm.setAttribute(&quot;src&quot;, myURL);			ifrm.setAttribute(&quot;scrolling&quot;, &quot;no&quot;);     			ifrm.style.width = 176 + &quot;px&quot;;    			ifrm.style.height = 100 + &quot;px&quot;;   			ifrm.style.border = 0;      			x.appendChild(ifrm);   		}   	)			&lt;/script&gt;&lt;span id=&quot;iFrameArea&quot;&gt;&lt;/span&gt;</body>
-    <pageComponentType>htmlArea</pageComponentType>
-    <width>narrow</width>
-</HomePageComponent>

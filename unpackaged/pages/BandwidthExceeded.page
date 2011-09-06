@@ -1,9 +1,9 @@
 <apex:page showHeader="false" title="{!$Label.site.bandwidth_limit_exceeded}">
-  <apex:composition template="{!$Site.Template}">
+  <apex:composition template="StdExceptionTemplate">
     <apex:define name="icon">
       <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/warning.gif')}"/>
     </apex:define>
-    <apex:define name="body">
+    <apex:define name="error">
       <apex:outputText styleClass="title" value="{!$Label.site.limit_exceeded}"/>
       <br/>
       <br/>
