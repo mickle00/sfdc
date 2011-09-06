@@ -5,11 +5,11 @@
         <apex:panelGrid bgcolor="white" columns="1">
           <br/>
           <br/>
-          <apex:panelGrid cellpadding="0" cellspacing="0" bgcolor="white" columns="1" styleClass="topPanelContainer">
+          <apex:panelGrid width="758" cellpadding="0" cellspacing="0" bgcolor="white" columns="1" styleClass="topPanelContainer">
             <br/>
             <apex:outputPanel layout="block" styleClass="topPanel">
-              <apex:panelGrid cellpadding="0" cellspacing="0" bgcolor="white" columns="3">
-                <!-- <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/clock.png')}"/>-->
+              <apex:panelGrid width="758" cellpadding="0" cellspacing="0" bgcolor="white" columns="3">
+                <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/clock.png')}"/>
                 <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/warning.gif')}"/>
                 <apex:panelGroup >
                   <apex:outputText styleClass="title" value="{!$Label.site.page_not_found_detail}">
@@ -25,7 +25,7 @@
                 </apex:panelGroup>
               </apex:panelGrid>
              </apex:outputPanel>
-
+            <c:SitePoweredBy />
           </apex:panelGrid>
         </apex:panelGrid>
       </center>

@@ -1,6 +1,0 @@
-<apex:page controller="UrlTestClass">
-  <apex:form >
-      <apex:outputLabel value="{!URlValue}">
-      </apex:outputLabel>o
-  </apex:form>
-</apex:page>

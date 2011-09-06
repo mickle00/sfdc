@@ -1,6 +1,9 @@
 <apex:page showHeader="false" title="{!$Label.site.in_maintenance}" cache="false">
-  <apex:composition template="{!$Site.Template}">
-    <apex:define name="body">
+  <apex:composition template="StdExceptionTemplate">
+    <apex:define name="icon">
+      <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/warning.gif')}"/>
+    </apex:define>
+    <apex:define name="error">
       <apex:outputText escape="false" styleClass="title" value="{!$Label.site.down_for_maintenance}">
         <apex:param value="{!$Site.CurrentSiteUrl}"/>
       </apex:outputText>
