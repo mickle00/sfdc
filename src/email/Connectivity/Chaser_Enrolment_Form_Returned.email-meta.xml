@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Chaser email to send if hotel/chain has not returned contract addendum after set number of days</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <letterhead>Connectivity</letterhead>
+    <name>Chaser Enrolment Form Returned</name>
+    <style>freeForm</style>
+    <subject>EQC Enrolment Form Required – {!Connection__c.Account__c} (ID {!Connection__c.Expedia_ID__c} )</subject>
+    <type>html</type>
+</EmailTemplate>

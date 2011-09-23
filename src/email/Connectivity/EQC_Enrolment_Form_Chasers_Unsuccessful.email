@@ -1,0 +1,6 @@
+<table height="400" width="550" cellpadding="5" border="0" cellspacing="5" >
+<tr height="400" valign="top" >
+<td style=" color:#000000; font-size:12pt; background-color:#FFFFFF; font-family:arial; bLabel:main; bEditID:r3st1;" tEditID="c1r1" locked="0" aEditID="c1r1" >
+<![CDATA[<p><span class="Apple-style-span" style="font-size: small; ">We have now made&nbsp;3 unsuccessful attempts to contact {!Connection__c.Account__c} regarding their EQC Enrolment Form, the last of which was sent on &nbsp;{!Connection__c.Last_Interaction__c}.&nbsp;We will now&nbsp;require your assistance in order to continue the process of setting up this hotel&nbsp;on EQC.</span></p><p style="font-size: 12pt; "><font size="2">&nbsp;</font></p><p style="font-size: 12pt; "><font size="2">Please follow up with <a href="http://cs7.salesforce.com/{!Contact.Id}">{!Contact.Name}&nbsp;</a></font><font size="2">to help us keep the process moving.&nbsp;</font></p><p style="font-size: 12pt; "><font size="2"></font>&nbsp;</p><p style="font-size: 12pt; "><font size="2">Thanks for your assistance!</font></p><p style="font-size: 12pt; "><font size="2"></font>&nbsp;</p><p style="font-size: 12pt; "><font size="2">Regards,</font></p><p style="font-size: 12pt; "><font size="2"></font>&nbsp;</p><p style="font-size: 12pt; "><font size="2">{!User.FirstName}</font></p>]]></td>
+</tr>
+</table>
