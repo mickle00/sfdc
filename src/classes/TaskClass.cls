@@ -34,6 +34,20 @@ public with sharing class TaskClass {
 		return parentId;
 	}
 	
+	public static List<Task> findEmailsByParentId(Id parentId){
+		List<Task> allEmails = new List<Task>();
+    	allEmails = [SELECT Id
+    					   ,Subject
+    					   ,Description
+    					   ,ActivityDate 
+    				   FROM Task 
+    				  WHERE WhatId = :parentId 
+    				    AND Subject like 'Email%'
+    			   order by ActivityDate desc];
+    				    
+    	return allEmails;
+	}
+	
 	   private Id emailThreadTaskParentId(String subject) {
 	  // Returns the parent Case id by matching the reference id from and associated task
 		
@@ -73,12 +87,13 @@ public with sharing class TaskClass {
 	
 	private String emailThreadTaskReferenceId(String subject) {
 	
-    Integer firstRef = subject.indexof('ref:');
-    Integer lastRef = subject.lastindexof(':ref') + 4;
-    
-    return subject.substring(firstRef,lastRef);
+	    Integer firstRef = subject.indexof('ref:');
+	    Integer lastRef = subject.lastindexof(':ref') + 4;
+	    
+	    return subject.substring(firstRef,lastRef);
 		
 	}
+	
 	
 
 }

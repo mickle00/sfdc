@@ -1,7 +1,7 @@
 public class ConnectionController{
   
     public Connection__c myConnection {get; set;}
-    public Connection__c myConnectionOld; // SHOULD REMOVE AND PUT LOGIC IN CONNECTION_CLASS
+    public Connection__c myConnectionOld; // SHOULD REMOVE AND PUT LOGIC IN ConnectionClass
     public Case myCase {get; set;}
     public Note myNote {get; set;}
     public Rollout_Step__c myConnectivityRollout {get; set;}
@@ -44,6 +44,7 @@ public class ConnectionController{
     }
     
     // Have to grab the account name this way, as on new connections myConnection.Account__r.Name doesn't work
+
     public string accountName {
         get{
             if (accountName == null){
@@ -59,6 +60,7 @@ public class ConnectionController{
         }
         set;
     }
+
     
     public PageReference newConnection(){
         renderConnectionDetails = true;        
@@ -123,10 +125,8 @@ public class ConnectionController{
     	// TODO CHECK FOR UPDATES BEFORE UPSERTING
         try{
             this.updateConnection(myConnection, myConnectionOld);
-            this.insertNote();
+            NoteClass.insertNote(myNote, myConnection.Id);
             RolloutStepClass.insertNewRolloutSteps(myConnectivityRollouts);
-            myConnection = Connection_Class.getConnection(myConnection.Id);
-            allNotes = getNotes(myConnection.Id);
             this.refreshData();
             return null;
         }catch (Exception e){
@@ -167,10 +167,16 @@ public class ConnectionController{
     	return caseQueryString;
     }
     
+    public List<Task> getAllEmails(){
+		return TaskClass.findEmailsByParentId(myConnection.Id);
+    } 
+    
     private void refreshData(){
     	this.buildAccountConnections();
-    }
-    
+    	myConnection = ConnectionClass.getConnection(myConnection.Id);
+        allNotes = NoteClass.getNotesByParentId(myConnection.Id);
+    	myNote = new Note();
+    }    
     
     // MOVE TO CONNECTION CLASS
     private void updateConnection(Connection__c newConnection, Connection__c oldConnection){
@@ -206,14 +212,14 @@ public class ConnectionController{
         isCreatingNewConnection = false;        
         myConnection = new Connection__c();
         try{
-        	myConnection = Connection_Class.getConnection(existingConnectionId);
+        	myConnection = ConnectionClass.getConnection(existingConnectionId);
         	myConnectionOld = myConnection.clone(true, true);
         }catch (Exception e){
         	system.debug('ConnectionController ExistingConnection Exception' + e);
         }                       
        
        try{
-           allNotes = getNotes(myConnection.Id);   		  
+           allNotes = NoteClass.getNotesByParentId(myConnection.Id);	  
    		   myConnectivityRollouts = RolloutStepClass.getRolloutStepsByConnectionId(myConnection.Id);
    		  
           if (myConnectivityRollouts.size() == 0){
@@ -221,14 +227,13 @@ public class ConnectionController{
           }
       } catch (Exception e){
           this.buildConnectivityRollouts();
-      }
-                         
+      }                         
     }
     
     public void buildAccountConnections(){
         // catch Accounts that do not have any existing connections
         try{
-            accountConnections = Connection_Class.getConnectionsByAccountId(myConnection.Account__c);
+            accountConnections = ConnectionClass.getConnectionsByAccountId(myConnection.Account__c);
                         
         }catch (Exception e) {
             system.debug ('Error: ' + e);
@@ -256,40 +261,5 @@ public class ConnectionController{
     					 FROM Case 
     					WHERE Id = :myCaseId];
     	return myCase;    	
-    }
-    
-    // ADD TO NOTE CLASS
-    private void insertNote(){
-        if (myNote.body != null || myNote.title != null){
-            if (myNote.title == null) myNote.title = '(NONE)';
-            myNote.ParentId = myConnection.Id;
-            insert myNote;
-        }
-        myNote = new Note();
-    }
-    private List<Note> getNotes(Id myConnectionId){
-    	List<Note> myNotes = [SELECT Title
-    								,Body
-    								,Owner.Name
-    								,CreatedDate 
-    						    FROM Note 
-    						   WHERE ParentId = :myConnection.Id 
-    						order by CreatedDate desc];
-    	return myNotes; 
-    }
-    
-    // ADD TO TASK CLASS   
-    public List<Task> getAllEmails(){
-    	List<Task> allEmails = new List<Task>();
-    	allEmails = [SELECT Id
-    					   ,Subject
-    					   ,Description
-    					   ,ActivityDate 
-    				   FROM Task 
-    				  WHERE WhatId = :myConnection.Id 
-    				    AND Subject like 'Email%'
-    			   order by ActivityDate desc];
-    				    
-    	return allEmails;
-    } 
+    }  
 }

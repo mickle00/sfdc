@@ -231,7 +231,7 @@
         <fields>Connection__c</fields>
         <fields>Completed_Date__c</fields>
         <fields>Rollout_Step__c</fields>
-        <relatedList>Connectivity_Rollout_Step__c.Case__c</relatedList>
+        <relatedList>Rollout_Step__c.Case__c</relatedList>
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEmailMessageList</relatedList>

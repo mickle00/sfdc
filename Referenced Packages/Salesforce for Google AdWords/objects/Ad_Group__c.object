@@ -57,6 +57,7 @@
         <label>Lead</label>
         <referenceTo>Lead</referenceTo>
         <relationshipName>R00N40000001HggvEAC</relationshipName>
+        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -66,6 +67,7 @@
         <label>Opportunity</label>
         <referenceTo>Opportunity</referenceTo>
         <relationshipName>R00N40000001HggwEAC</relationshipName>
+        <required>false</required>
         <type>Lookup</type>
     </fields>
     <label>Ad Group</label>

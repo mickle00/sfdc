@@ -46,6 +46,7 @@
         <label>Lead</label>
         <referenceTo>Lead</referenceTo>
         <relationshipName>R00N40000001Hgh4EAC</relationshipName>
+        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
@@ -55,6 +56,7 @@
         <label>Opportunity</label>
         <referenceTo>Opportunity</referenceTo>
         <relationshipName>R00N40000001Hgh5EAC</relationshipName>
+        <required>false</required>
         <type>Lookup</type>
     </fields>
     <fields>
