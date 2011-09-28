@@ -1,10 +1,11 @@
 public class ConnectionController{
   
+    public Set<String> TEMPLATE_FOLDERS = new Set<String>{'EQC Maintenance', 'EQC Soft Launch', 'Venere Connect'};
+    public String FROM_ADDRESS = 'connect.eqc@3b49lbjwy8aaythyiuc5i84z4.m9grhmay.m.apex.sandbox.salesforce.com';   
+    
     public Connection__c myConnection {get; set;}
-    public Connection__c myConnectionOld; // SHOULD REMOVE AND PUT LOGIC IN ConnectionClass
     public Case myCase {get; set;}
     public Note myNote {get; set;}
-    public Rollout_Step__c myConnectivityRollout {get; set;}
     public List<Rollout_Step__c> myConnectivityRollouts {get; set;}    
     public List<Connection__c> accountConnections{get; set;}
     public List<Note> allNotes{get; set;}
@@ -15,67 +16,42 @@ public class ConnectionController{
     public Id rolloutStepToDelete{get;set;}
     public Id connectionIdToEdit {get; set;}
     public EmailWidgetWrapper myEmailWidget{get; set;}
-    
+    public string accountName {get; set;}        
+        
     public ConnectionController(ApexPages.StandardController stdController){
     	this.myConnection = (Connection__c)stdController.getRecord();
     	renderConnectionDetails = false;
     	numberAdditionalRolloutSteps = 0;    	
-        if (ApexPages.currentPage().getParameters().containsKey('CaseID')){           
-           renderConnectionDetails = false;
+        if (ApexPages.currentPage().getParameters().containsKey('CaseID')){
            if (ApexPages.currentPage().getParameters().containsKey('new'))renderConnectionDetails = true;
            originalCaseId = ApexPages.currentPage().getParameters().get('CaseID');
-           this.NewConnectionFromCase();
+           this.NewConnectionFromCase();        
         }
         if(ApexPages.currentPage().getParameters().containsKey('Id')){
         	this.ExistingConnection(ApexPages.currentPage().getParameters().get('Id'));        	
-        	myEmailWidget = new EmailWidgetWrapper(myConnection, originalCaseId);
+        	myEmailWidget = new EmailWidgetWrapper(myConnection, originalCaseId, TEMPLATE_FOLDERS, FROM_ADDRESS);
         }    
-        myNote = new Note();        
+        myNote = new Note();
         this.buildAccountConnections();
         
         if(myConnection.Account__c == null){
             this.noAccount();
-        }       
+        }
+        buildAccountName();
     }
     
     public string getTitle(){
         if (isCreatingNewConnection == true) return 'New Connection';        
         return 'Edit Connection';
     }
-    
-    // Have to grab the account name this way, as on new connections myConnection.Account__r.Name doesn't work
-
-    public string accountName {
-        get{
-            if (accountName == null){
-                try {
-                    Account myAccount = [SELECT Name FROM Account WHERE Id = :myConnection.Account__c];
-                    this.accountName = myAccount.Name;
-                    }
-                catch (Exception e){
-                    system.debug(e);
-                }
-            }
-            return accountName;            
-        }
-        set;
-    }
-
-    
+        
     public PageReference newConnection(){
         renderConnectionDetails = true;        
-        Case myCase = getCase(originalCaseId);
+        Case myCase = CaseClass.findById(originalCaseId);
         myConnection = new Connection__c(Account__c = myCase.AccountId, Status__c = 'Connecting');
         return null;
     }
-   	
-    public PageReference editConnection(){
-        PageReference editConnectionPage = new PageReference ('/apex/ManageConnection?Id=' + connectionIdToEdit +'&'+ getCaseQueryString());
-        editConnectionPage.setRedirect(true); 
-        this.ExistingConnection(connectionIdToEdit);
-        return editConnectionPage;
-    }
-        
+            
     public boolean getRenderExistingConnections(){
         return accountConnections.size() > 0 && accountName != null;
     }
@@ -101,13 +77,12 @@ public class ConnectionController{
 	}
 	
     public void addRolloutStage(){
-        Rollout_Step__c newConnectivityRollout = new Rollout_Step__c(Case__c = originalCaseId, Connection__c = myConnection.Id, Completed_Date__c = system.now());
         numberAdditionalRolloutSteps++;
-        myConnectivityRollouts.add(newConnectivityRollout);
+        myConnectivityRollouts.add(newRolloutStep());
     }
     
     public void removeRolloutStage(){
-    	numberAdditionalRolloutSteps--;       
+    	numberAdditionalRolloutSteps--;
         myConnectivityRollouts.remove(myConnectivityRollouts.size()-1);
     }
     
@@ -116,29 +91,38 @@ public class ConnectionController{
     	delete rolloutToDelete;
     	rolloutStepToDelete = null;
    		myConnectivityRollouts = RolloutStepClass.getRolloutStepsByConnectionId(myConnection.Id);
-          if (myConnectivityRollouts.size() == 0){
-              this.buildConnectivityRollouts();
-          }
+        if (myConnectivityRollouts.size() == 0){
+        	this.buildConnectivityRollouts();
+    	}
     }
 
     public PageReference Save(){
-    	// TODO CHECK FOR UPDATES BEFORE UPSERTING
         try{
-            this.updateConnection(myConnection, myConnectionOld);
+        	ConnectionClass.upsertConnection(myConnection);            
             NoteClass.insertNote(myNote, myConnection.Id);
             RolloutStepClass.insertNewRolloutSteps(myConnectivityRollouts);
             this.refreshData();
-            return null;
         }catch (Exception e){
-        	system.debug('THERE BE AN EXCEPTION' + e);
-            return null;
-        }           
+        	system.debug('Connection Controller Save Exception' + e);
+        }
+        return null;           
     }
     
     public PageReference createNewConnection(){
-        PageReference newConnectionURL = new PageReference('/apex/ManageConnection?CaseID='+myCase.Id+'&new=true');
+        PageReference newConnectionURL = Page.ManageConnection;
+        newConnectionURL.getParameters().put('CaseID', myCase.Id);
+        newConnectionURL.getParameters().put('new', 'true');        
         newConnectionURL.setRedirect(true); // clear the viewstate
         return newConnectionURL;
+    }
+    
+    public PageReference editConnection(){        
+        PageReference editConnectionPage = Page.ManageConnection;
+        editConnectionPage.getParameters().put('Id', connectionIdToEdit);
+        if (originalCaseId != null) editConnectionPage.getParameters().put('CaseID', myCase.Id);
+        editConnectionPage.setRedirect(true); 
+        this.ExistingConnection(connectionIdToEdit);
+        return editConnectionPage;
     }
   
   	public PageReference Cancel(){
@@ -148,8 +132,9 @@ public class ConnectionController{
   	}
   
     public PageReference returnToCase(){
-    	if (originalCaseId != null){
-        	PageReference caseURL = new PageReference('/'+originalCaseId);
+    	if (originalCaseId != null){        	
+        	PageReference caseURL =  new ApexPages.StandardController(myCase).view();
+        	caseURL.setRedirect(true);
         	return caseURL;
     	}else{
     		PageReference homeURL = new PageReference('/');
@@ -157,6 +142,7 @@ public class ConnectionController{
     	}
     }
     
+    //Used to build a link directly from visualforce page
     public string getCaseQueryString(){
     	return getCaseQueryString(originalCaseId);
     }
@@ -169,40 +155,44 @@ public class ConnectionController{
     
     public List<Task> getAllEmails(){
 		return TaskClass.findEmailsByParentId(myConnection.Id);
-    } 
+    }
+    
+    //Need to query this way incase access the page directly from connection, and not via Case Button
+    private void buildAccountName(){
+    	if (accountName == null){
+			try {
+            	Account myAccount = [SELECT Name FROM Account WHERE Id = :myConnection.Account__c];
+                accountName = myAccount.Name;
+                }
+            catch (Exception e){
+                system.debug(e);
+            }
+    	}
+    }
+    
+    private RecordType connectivityRolloutStepRecordType;
+    
+    private RecordType getConnectivityRolloutStepRecordType(){
+    	if (connectivityRolloutStepRecordType == null){
+     		connectivityRolloutStepRecordType = [SELECT Id 
+     											   FROM RecordType 
+ 											   	  WHERE sObjectType = 'Rollout_Step__c' 
+ 											   	  	AND DeveloperName = 'Connectivity'];
+     	}
+     	return connectivityRolloutStepRecordType;
+    }
     
     private void refreshData(){
     	this.buildAccountConnections();
     	myConnection = ConnectionClass.getConnection(myConnection.Id);
         allNotes = NoteClass.getNotesByParentId(myConnection.Id);
     	myNote = new Note();
+    	numberAdditionalRolloutSteps = 0;
     }    
-    
-    // MOVE TO CONNECTION CLASS
-    private void updateConnection(Connection__c newConnection, Connection__c oldConnection){
-    	/**
-    	boolean isUpdated = false;
-    	Map<String,Schema.SObjectField> connectionFieldMap = Connection__c.sObjectType.getDescribe().fields.getMap();
-
-		for (String fieldName : connectionFieldMap.keySet()){
-			if (newConnection.get(fieldName) != oldConnection.get(fieldName)) isUpdated = true;
-			//system.debug(fieldName);
-			//system.debug(connectionFieldMap.get(fieldName));
-			
-		}
-		if (isUpdated) upsert newConnection;
-		**/
-		upsert newConnection;
-    } 
         
     private void NewConnectionFromCase(){
         isCreatingNewConnection = true;
-        myCase = getCase(originalCaseId);
-                  
-        if (myCase.AccountId == null){
-            ApexPages.Message myError = new ApexPages.Message(ApexPages.Severity.FATAL, 'Warning - Case has no associated account, please update the case prior to creating a connection.');
-            ApexPages.addMessage(myError);
-        }
+        myCase = CaseClass.findById(originalCaseId);        
         myConnection = new Connection__c(Account__c = myCase.AccountId, Status__c = 'Connecting');
         this.buildConnectivityRollouts();
     }
@@ -213,53 +203,45 @@ public class ConnectionController{
         myConnection = new Connection__c();
         try{
         	myConnection = ConnectionClass.getConnection(existingConnectionId);
-        	myConnectionOld = myConnection.clone(true, true);
         }catch (Exception e){
         	system.debug('ConnectionController ExistingConnection Exception' + e);
-        }                       
-       
-       try{
-           allNotes = NoteClass.getNotesByParentId(myConnection.Id);	  
-   		   myConnectivityRollouts = RolloutStepClass.getRolloutStepsByConnectionId(myConnection.Id);
+        }
+       	try{
+        	allNotes = NoteClass.getNotesByParentId(myConnection.Id);	  
+   		    myConnectivityRollouts = RolloutStepClass.getRolloutStepsByConnectionId(myConnection.Id);
    		  
-          if (myConnectivityRollouts.size() == 0){
-              this.buildConnectivityRollouts();
-          }
-      } catch (Exception e){
-          this.buildConnectivityRollouts();
-      }                         
+         	if (myConnectivityRollouts.size() == 0){
+            	this.buildConnectivityRollouts();
+  			}
+      	} catch (Exception e){
+          	this.buildConnectivityRollouts();
+  		}                         
     }
     
-    public void buildAccountConnections(){
+    private void buildAccountConnections(){
         // catch Accounts that do not have any existing connections
         try{
-            accountConnections = ConnectionClass.getConnectionsByAccountId(myConnection.Account__c);
-                        
+            accountConnections = ConnectionClass.getConnectionsByAccountId(myConnection.Account__c);                        
         }catch (Exception e) {
             system.debug ('Error: ' + e);
             accountConnections = new List<Connection__c>();
-        }
-    
+        }    
     }
     
     private void buildConnectivityRollouts(){
-          myConnectivityRollouts = new List<Rollout_Step__c>();
-          myConnectivityRollout = new Rollout_Step__c(Case__c = originalCaseId, Connection__c = myConnection.Id, Completed_Date__c = system.now());
-          myConnectivityRollouts.add(myConnectivityRollout);
+          myConnectivityRollouts = new List<Rollout_Step__c>();          
+          myConnectivityRollouts.add(newRolloutStep());
     }
+    
+    private Rollout_Step__c newRolloutStep(){
+    	return new Rollout_Step__c(Case__c = originalCaseId
+    							  ,Connection__c = myConnection.Id
+    							  ,Completed_Date__c = system.now()
+    							  ,RecordTypeId = getConnectivityRolloutStepRecordType().Id);
+    }    
    
     private void noAccount(){  
         ApexPages.Message myError = new ApexPages.Message(ApexPages.Severity.FATAL, 'Warning - Case has no associated account, please update the case prior to creating a connection.');
         ApexPages.addMessage(myError);
-    }    
-    
-    // ADD TO CASE CLASS??
-   	private Case getCase(Id myCaseId){
-    	Case myCase = [SELECT Id 
-    						 ,AccountId    						 
-    						 ,CaseNumber
-    					 FROM Case 
-    					WHERE Id = :myCaseId];
-    	return myCase;    	
-    }  
+    }
 }

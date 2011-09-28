@@ -18,7 +18,7 @@ public with sharing class RolloutStepClass {
 				 WHERE Id = :rolloutStepId];
 	}
 	
-    //Upsering a list touches even unchanged records. This simply pulls out the new steps and inserts them.
+    //Upserting a list touches even unchanged records. This simply pulls out the new steps and inserts them.
     public static void insertNewRolloutSteps(List<Rollout_Step__c> myRolloutSteps){
     	List<Rollout_Step__c> rolloutStepsToInsert = new List<Rollout_Step__c>();
     	for (Rollout_Step__c myRolloutStep : myRolloutSteps){

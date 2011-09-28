@@ -50,4 +50,15 @@ public with sharing class ConnectionClass {
                WHERE  Account__c = :accountId
             ORDER BY  LastModifiedDate DESC];
     }
+    
+    
+    // Check for updates before upserting. Since this is displayed with rollout steps, and notes, 
+    public static void upsertConnection(Connection__c myConnection){
+    	if (myConnection.Id != null){
+    		Connection__c oldConnection = getConnection(myConnection.Id);
+    		if (oldConnection != myConnection) upsert myConnection;
+    	} else{
+    		insert myConnection;
+    	}
+    }
 }

@@ -59,5 +59,15 @@ public with sharing class AccountContactClass {
 	  
 	  return allAccountContacts;
 	}
+	
+	public static List<Account_Contact__c> findByAccountId (Id myAccountId){
+		return [SELECT Id
+					  ,Contact__c
+				      ,Contact__r.Email
+					  ,Contact__r.FirstName
+					  ,Contact__r.LastName 
+				  FROM Account_Contact__c 
+				 WHERE Account__c = :myAccountId];
+	}
 
 }

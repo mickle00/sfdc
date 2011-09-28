@@ -205,6 +205,10 @@ public class CaseClass {
     }// end for loop      
     insert casesToInsert;
   }    
+    public static Case findById(Id myCaseId){
+    	CaseClass caseObj = new CaseClass();
+    	return caseObj.getCase(myCaseId);
+    }
     
     /////// Private Methods
         
@@ -562,6 +566,7 @@ public class CaseClass {
         
     private Case getCase(Id caseId) {
       return [Select Id
+      				,AccountId
                     ,Status
                     ,isClosed
                     ,OwnerId

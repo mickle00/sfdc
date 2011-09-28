@@ -36,6 +36,14 @@ public with sharing class AccountRepcoClass {
     	
     }
     
+	public static Account_Repco__c findById(Id accountRepcoId){
+		return [SELECT Id
+    				  ,Account_Repco_Index_Number__c
+    				  ,Account__c
+    			  FROM Account_Repco__c
+    			 WHERE Id = :accountRepcoId];
+	}   
+    
     private Set<Id> getAccountIds (List<Account_Repco__c> myAccountRepcos){
         Set<Id> accountIds = new Set<Id>();
         

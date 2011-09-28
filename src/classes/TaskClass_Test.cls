@@ -63,5 +63,11 @@ private class TaskClass_Test {
       taskParentId = objTask.getTaskParentId('Test email subject');
       system.assertEquals(taskParentId, null);
       
+      Task emailTask = new Task(Subject = 'Email task', WhatId = testCase.Id);
+      insert emailTask;
+      
+      system.assertEquals(TaskClass.findEmailsByParentId(testCase.Id).size(), 1);
+      
+      
     }
 }

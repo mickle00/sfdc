@@ -1,14 +1,16 @@
 public with sharing class EmailWidgetWrapper {
 	
-	public EmailWidgetWrapper (Connection__c myConnection, id myCaseId){
+	public EmailWidgetWrapper (Connection__c myConnection, id myCaseId, Set<String> templateFolders, string fromAddress){
+		this.templateFolders = templateFolders;
 		this.myConnection = myConnection;
-		this.templates = getTemplates();
-		this.hotelContacts = getHotelContacts();
-		this.vendorContacts = getVendorContacts();
-		this.systemContacts = getSystemContacts();
-		this.marketManagers = getMarketManagers();
-		this.accountTeamMembers = getAccountTeamMembers();
+		this.templates = findTemplates();		
+		this.hotelContacts = findHotelContacts();
+		this.vendorContacts = findVendorContacts();
+		this.systemContacts = findSystemContacts();
+		this.marketManagers = findMarketManagers();
+		this.accountTeamMembers = findAccountTeamMembers();
 		this.myCaseId = myCaseId;
+		this.fromAddress = fromAddress;
 	}
 	
 	public List<SelectOption> templates {get; set;}
@@ -52,9 +54,8 @@ public with sharing class EmailWidgetWrapper {
 			return template;							
 		}set;
 	}
-	
+		
     public PageReference sendConnectivityEmail(){
-    	String fromEmailAddress = 'connect.eqc@3b49lbjwy8aaythyiuc5i84z4.m9grhmay.m.apex.sandbox.salesforce.com';
     	String retURL = EncodingUtil.urlEncode('/apex/ManageConnection?Id=' + this.myConnection.Id + '&' + ConnectionController.getCaseQueryString(this.myCaseId), 'UTF-8');
     	
     	PageReference emailURL = new PageReference ('/email/author/emailauthor.jsp?'
@@ -64,14 +65,17 @@ public with sharing class EmailWidgetWrapper {
     												//+ '&p2=' + '' // TO: (CONTACT NAME)									
     												//+ '&p24=' + ccAddresses() // ADDITIONAL TO
     												+ '&p4=' + ccAddresses() // CC ADDRESS
-    												+ '&p26=' + fromEmailAddress // FROM ADDRESS
+    												+ '&p26=' + this.fromAddress // FROM ADDRESS
     												+ '&template_id=' + this.template
     												); 
     	emailURL.setRedirect(true);
     	return emailURL;   	
 	}
 	
-	// PRIVATE METHODS
+	// PRIVATE METHODS		
+	
+	private Set<String> templateFolders;
+	private String fromAddress;
 	
 	private string ccAddresses(){
 		string ccAddresses = '';		
@@ -81,6 +85,8 @@ public with sharing class EmailWidgetWrapper {
 		return ccAddresses;
 	}
 	
+	
+	// Turn a list into a semicolon separated string
     private string flattenStringList(List<String> myList){
     	String myStrings = '';
     	if (myList != null){
@@ -91,76 +97,63 @@ public with sharing class EmailWidgetWrapper {
     	return myStrings;
 	}
 	
-	private List<SelectOption> getTemplates() {
-    	List<EmailTemplate> templates = [SELECT Id 
-    										   ,Name 
-    									   FROM EmailTemplate 
-    									  WHERE FolderId IN (SELECT Id 
-    									  					   FROM Folder 
-    									  					  WHERE Name = 'Connectivity')
-					  				   order by Name asc];
-    									  					  
-        List<SelectOption> options = new List<SelectOption>();
-        options.add(new SelectOption('','-- None -- '));
-        for (EmailTemplate myTemplate : templates){        
-        	options.add(new SelectOption(myTemplate.Id,myTemplate.Name));
-        }
+	private List<SelectOption> findTemplates() {
+		List<SelectOption> options = new List<SelectOption>();
+		options.add(new SelectOption('','-- None -- '));		
+		
+    	List<EmailTemplate> emailTemplates = [SELECT Id 
+    										   		,Name
+    										   		,Folder.Name
+    									   		FROM EmailTemplate 
+    									  	   WHERE FolderId IN (SELECT Id 
+    									  			    			FROM Folder 
+    									  					  	   WHERE Name IN :templateFolders)
+					  				   		order by Folder.Name, Name asc];
+
+        
+        for (EmailTemplate myTemplate : emailTemplates){
+        	options.add(new SelectOption(myTemplate.Id,myTemplate.Folder.Name + ': ' + myTemplate.Name));
+        }           
+        
         return options;
 	}
 
-    private List<SelectOption> getHotelContacts() {
+    private List<SelectOption> findHotelContacts() {
         List<SelectOption> options = new List<SelectOption>();      
-        List<Account_Contact__c> hotelContacts = [SELECT Id
-        												,Contact__c
-        												,Contact__r.Email
-        												,Contact__r.FirstName
-        												,Contact__r.LastName 
-        										    FROM Account_Contact__c 
-        										   WHERE Account__c = :myConnection.Account__c];
-        for (Account_Contact__c hotelContact : hotelContacts){
+
+        for (Account_Contact__c hotelContact : AccountContactClass.findByAccountId(myConnection.Account__c)){
         	options.add(new SelectOption(hotelContact.Contact__c,hotelContact.Contact__r.FirstName + ' ' + hotelContact.Contact__r.LastName));
         }
         options.add(new SelectOption('','-- None -- '));
         return options;
     } 
 
-    private List<SelectOption> getVendorContacts() {
+    private List<SelectOption> findVendorContacts() {
         List<SelectOption> options = new List<SelectOption>();        
-    	List<Account_Contact__c> vendorContacts = [SELECT Id
-        												,Contact__r.Email
-        												,Contact__r.FirstName
-        												,Contact__r.LastName 
-        										    FROM Account_Contact__c 
-        										   WHERE Account__c = :myConnection.Connectivity_System__r.Connectivity_Vendor__c];
-        for (Account_Contact__c vendorContact : vendorContacts){
+
+        for (Account_Contact__c vendorContact : AccountContactClass.findByAccountId(myConnection.Connectivity_System__r.Connectivity_Vendor__c)){
         	options.add(new SelectOption(vendorContact.Contact__r.Email,vendorContact.Contact__r.FirstName + ' ' + vendorContact.Contact__r.LastName));
         }
         return options;
     } 
  
-    private List<SelectOption> getSystemContacts() {
+    private List<SelectOption> findSystemContacts() {
         List<SelectOption> options = new List<SelectOption>();
-        
-        List<Connectivity_System_Contact__c> systemContacts = [SELECT Id
-        															  ,Contact__r.Email
-        															  ,Contact__r.FirstName
-        															  ,Contact__r.LastName 
-        										    			  FROM Connectivity_System_Contact__c 
-        										   				 WHERE Connectivity_System__c = :myConnection.Connectivity_System__c];       
-        for (Connectivity_System_Contact__c systemContact : systemContacts){
+     
+        for (Connectivity_System_Contact__c systemContact : ConnectivitySystemContactClass.findByConnectivitySystemId(myConnection.Connectivity_System__c)){
         	options.add(new SelectOption(systemContact.Contact__r.Email,systemContact.Contact__r.FirstName + ' ' + systemContact.Contact__r.LastName));
         }
         return options;
     }
 
-    private List<SelectOption> getMarketManagers() {
+    private List<SelectOption> findMarketManagers() {
         List<SelectOption> options = new List<SelectOption>(); 
         if (myConnection.Account__r.Market_Manager_Email__c != null && myConnection.Account__r.Market_Manager_Name__c != null){       
         	options.add(new SelectOption(myConnection.Account__r.Market_Manager_Email__c, myConnection.Account__r.Market_Manager_Name__c));
         }
         return options;
     }
-    private List<SelectOption> getAccountTeamMembers() {
+    private List<SelectOption> findAccountTeamMembers() {
         List<SelectOption> options = new List<SelectOption>(); 	        
         List<PSG_User_Role__c> accountTeamMembers = PSGUserRoleClass.findByAccount(myConnection.Account__c);
         										   
